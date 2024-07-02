@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1450c56927a9a3f4c996d7c82ae41de3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hp_full: {fileID: 21300000, guid: 9321ebd5c5b3c1c40ac7c7223644be91, type: 3}
+  - hp_threequarter: {fileID: 21300000, guid: 48c659ae35b60be49910d4678920e34e, type: 3}
+  - hp_half: {fileID: 21300000, guid: 714b87e4939c3414da1a056ea27b07dc, type: 3}
+  - hp_quarter: {fileID: 21300000, guid: d39e331c9011c0c41a5a2d911ccc0dd8, type: 3}
+  - hp_empty: {fileID: 21300000, guid: 133c3d10fb911fe4f9f2983bc71b5543, type: 3}
+  - hunger_full: {fileID: 21300000, guid: 74b19e982677db14ba611d9aa9411301, type: 3}
+  - hunger_empty: {fileID: 21300000, guid: 48690cc62f7d26141a0dd3229c4bd6e4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
