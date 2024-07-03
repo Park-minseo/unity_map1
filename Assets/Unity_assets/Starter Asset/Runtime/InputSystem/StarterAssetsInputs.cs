@@ -12,8 +12,9 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+        public bool ctrl;
 
-		[Header("Movement Settings")]
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
@@ -43,10 +44,18 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+		    public void OnCtrl(InputValue value) // 추가된 부분
+        {
+            CtrlInput(value.isPressed);
+        }
 #endif
 
+		public void Update()
+		{
+            ctrl = Keyboard.current[Key.LeftCtrl].isPressed;
+        }
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -75,6 +84,10 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-	}
+        public void CtrlInput(bool newCtrlState) // 추가된 부분
+        {
+            ctrl = newCtrlState;
+        }
+    }
 	
 }
