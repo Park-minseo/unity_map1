@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 #if ENABLE_INPUT_SYSTEM
+
 using UnityEngine.InputSystem;
 #endif
 
@@ -13,10 +17,10 @@ namespace StarterAssets
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 2.0f;
+        public float MoveSpeed = 5.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 5.335f;
+        public float SprintSpeed = 8.0f;
 
         public float FlyingSpeed = 1.0f;
 
@@ -40,7 +44,7 @@ namespace StarterAssets
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-        public float JumpTimeout = 0.50f;
+        public float JumpTimeout = 0.30f;
 
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
@@ -89,8 +93,11 @@ namespace StarterAssets
         // jetpack
         private float _jetpackAcceleration;
         public float JetpackMaxAcceleration = 10.0f;
-        public float JetpackIncreaseRate = 2.0f;
+        public float JetpackIncreaseRate = 2.5f;
         public float JetpackDecreaseRate = 5.0f;
+        public float JetPack_maximum = 1000.0f;
+        public float JetPack_current = 1000.0f;
+        public Image JetPackBar;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -102,6 +109,9 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+
+
+
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -303,6 +313,7 @@ namespace StarterAssets
 
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
+                    Debug.Log("Jump key pressed.");
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                     if (_hasAnimator)
@@ -348,13 +359,23 @@ namespace StarterAssets
 
         private void Jetpack()
         {
-            //Debug.Log("Jetpack method called.");
-            if (_input.ctrl)
+  
+            if (_input.ctrl && JetPack_current > 0)
             {
                 Debug.Log("Ctrl key pressed.");
                 _jetpackAcceleration = Mathf.Min(_jetpackAcceleration + JetpackIncreaseRate * Time.deltaTime, JetpackMaxAcceleration);
                 _verticalVelocity = _jetpackAcceleration * FlyingSpeed;
                 Debug.Log("Vertical velocity set to: " + _verticalVelocity);
+
+                JetPack_current -= _verticalVelocity;
+                JetPack_current = Mathf.Max(JetPack_current, 0.0f);
+
+                JetPackBar.fillAmount = (float)JetPack_current / JetPack_maximum;
+
+                if (JetPack_current == 0.0f) {
+                    _input.ctrl = false;
+                    
+                }
             }
             else
             {
