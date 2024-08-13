@@ -99,7 +99,7 @@ namespace StarterAssets
         public float JetPack_current = 1000.0f;
         public Image JetPackBar;
 
-        // timeout deltatime
+        // timeout deltatime    
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
