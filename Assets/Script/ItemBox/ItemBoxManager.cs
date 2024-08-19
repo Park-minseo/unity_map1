@@ -1,34 +1,31 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 // 아이템 정보를 담는 클래스
-/*
 [System.Serializable]
-public class Item
+public class InventoryItem
 {
     public string itemName;
     public int itemID;
     public int quantity;
-    
-    public Item(string name, int id, int qty)
+
+    public InventoryItem(string name, int id, int qty)
     {
         itemName = name;
         itemID = id;
         quantity = qty;
     }
-    
-}*/
+}
 
 // 아이템 박스, 여러 아이템을 관리하는 클래스
 [System.Serializable]
 public class ItemBox
 {
-    public List<Item> items = new List<Item>();
+    public List<InventoryItem> items = new List<InventoryItem>();
 
-    public void AddItem(Item newItem)
+    public void AddItem(InventoryItem newItem)
     {
         items.Add(newItem);
     }
@@ -79,7 +76,7 @@ public class ItemCollector : MonoBehaviour
         if (nearbyItem != null)
         {
             // 아이템 획득
-            Item newItem = new Item(nearbyItem.itemName, nearbyItem.itemID, nearbyItem.quantity);
+            InventoryItem newItem = new InventoryItem(nearbyItem.itemName, nearbyItem.itemID, nearbyItem.quantity);
             itemBoxManager.itemBox.AddItem(newItem);
             itemBoxManager.SaveItemBox();
 
@@ -114,9 +111,7 @@ public class ItemCollector : MonoBehaviour
 // 필드에 드롭된 아이템을 나타내는 클래스
 public class ItemPickup : MonoBehaviour
 {
-    
     public string itemName;
     public int itemID;
     public int quantity;
-    
 }
