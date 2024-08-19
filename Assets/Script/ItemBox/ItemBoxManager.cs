@@ -1,23 +1,26 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 // 아이템 정보를 담는 클래스
+/*
 [System.Serializable]
 public class Item
 {
     public string itemName;
     public int itemID;
     public int quantity;
-
+    
     public Item(string name, int id, int qty)
     {
         itemName = name;
         itemID = id;
         quantity = qty;
     }
-}
+    
+}*/
 
 // 아이템 박스, 여러 아이템을 관리하는 클래스
 [System.Serializable]
@@ -111,7 +114,9 @@ public class ItemCollector : MonoBehaviour
 // 필드에 드롭된 아이템을 나타내는 클래스
 public class ItemPickup : MonoBehaviour
 {
+    
     public string itemName;
     public int itemID;
     public int quantity;
+    
 }

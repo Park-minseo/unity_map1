@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine;
         만들어서
         아 근데 아이템 획득을 어떤 식으로 처리 받는지를 잘 모르겠네. 조금 더 찾아봐야겠다. keydown이 들어가긴 하는데, 그때 주변에 아이템이 드랍되어있어야
         제대로 아이템을 획득하는 걸 텐데...   
-         */
+  */
 public class GameManager : MonoBehaviour
 {
     public ItemBoxManager itemBoxManager; // 아이템 박스를 관리하는 매니저
