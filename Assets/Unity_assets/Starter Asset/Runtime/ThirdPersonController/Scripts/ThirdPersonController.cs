@@ -294,6 +294,31 @@ namespace StarterAssets
             }
         }
 
+        private void Jetpack()
+        {
+            if (_input.ctrl && JetPack_current > 0)
+            {
+                Debug.Log("Ctrl key pressed.");
+                _jetpackAcceleration = Mathf.Min(_jetpackAcceleration + JetpackIncreaseRate * Time.deltaTime, JetpackMaxAcceleration);
+                _verticalVelocity = _jetpackAcceleration * FlyingSpeed;
+                Debug.Log("Vertical velocity set to: " + _verticalVelocity);
+
+                JetPack_current -= _verticalVelocity;
+                JetPack_current = Mathf.Max(JetPack_current, 0.0f);
+
+                JetPackBar.fillAmount = (float)JetPack_current / JetPack_maximum;
+            }
+            else
+            {
+                _jetpackAcceleration = 0;
+
+                if (JetPack_current <= 0)
+                {
+                    _verticalVelocity += Gravity * Time.deltaTime; // 중력을 적용하여 즉시 하강하도록 함
+                }
+            }
+        }
+
         private void JumpAndGravity()
         {
             if (Grounded)
@@ -347,40 +372,13 @@ namespace StarterAssets
             }
 
             // Jetpack을 사용할 때는 중력 계산을 제외
-            if (!_input.ctrl)
+            if (!_input.ctrl || JetPack_current <= 0)
             {
                 // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
                 if (_verticalVelocity < _terminalVelocity)
                 {
                     _verticalVelocity += Gravity * Time.deltaTime;
                 }
-            }
-        }
-
-        private void Jetpack()
-        {
-  
-            if (_input.ctrl && JetPack_current > 0)
-            {
-                Debug.Log("Ctrl key pressed.");
-                _jetpackAcceleration = Mathf.Min(_jetpackAcceleration + JetpackIncreaseRate * Time.deltaTime, JetpackMaxAcceleration);
-                _verticalVelocity = _jetpackAcceleration * FlyingSpeed;
-                Debug.Log("Vertical velocity set to: " + _verticalVelocity);
-
-                JetPack_current -= _verticalVelocity;
-                JetPack_current = Mathf.Max(JetPack_current, 0.0f);
-
-                JetPackBar.fillAmount = (float)JetPack_current / JetPack_maximum;
-
-                if (JetPack_current == 0.0f) {
-                    _input.ctrl = false;
-                    
-                }
-            }
-            else
-            {
-                // 컨트롤을 누르지 않을 때는 중력에 의해 떨어지도록 설정
-                _jetpackAcceleration = 0;
             }
         }
 
